@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h2>Calculate a weight of an object on a Planet</h2>
+    <div>
+        
+        <div class="massContainer">
+            <p>Please enter your mass</p>
+            <input id="inputWeight" type="number">
+        </div>
+        <div class="planetContainer">
+
+            <p>Please select your planet to visit</p>
+            <select name="selectPlanet" id="selectPlanet"></select>
+        </div>
+    </div>
+    <div class="button">
+        <button onclick="calcWeight()" id="button">Calculate Weight</button>
+    </div>
+    <div class="h1AndImgContainer">
+
+        
+        <img id="image" src="" alt="">
+        <h1 id="h1"></h1>
+    </div>
+</body>
+<script>
+    const planets = [
+        { planetName: "Sun", gravity: 27.9, image: "https://spaceplace.nasa.gov/gallery-sun/en/solar-flare.en.jpg" },
+        { planetName: "Moon", gravity: 0.1655, image: "https://cdn.mos.cms.futurecdn.net/snbrHBRigvvzjxNGuUtcck.jpg" },
+        { planetName: "Mercury", gravity: 0.377, image: "https://4.bp.blogspot.com/-eJd9cphcd_s/WiujDonH1sI/AAAAAAAAC8o/CfPJz9hTyOgMle1jzFZM5d0l_r0h3ewngCLcBGAs/s1600/mercuryglobe.jpg" },
+        { planetName: "Venus", gravity: 0.9032, image: "http://www.nasa.gov/sites/default/files/thumbnails/image/imagesvenus20191211venus20191211-16.jpeg" },
+        { planetName: "Earth", gravity: 1, image: "https://cdn.pixabay.com/photo/2011/12/13/14/31/earth-11015__340.jpg" },
+        { planetName: "Mars", gravity: 0.3895, image: "https://www.openaccessgovernment.org/wp-content/uploads/2021/04/dreamstime_xxl_121672573-scaled.jpg" },
+        { planetName: "Jupiter", gravity: 2.640, image: "https://media.istockphoto.com/id/173228030/photo/jupiter-on-star-field.jpg?s=612x612&w=0&k=20&c=iVhgrwuZ4STGi8m5GK_qsUeX0WyAL3IXUUAqsko2neU=" },
+        { planetName: "Saturn", gravity: 1.139, image: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg" },
+        { planetName: "Uranus", gravity: 0.917, image: "https://c.tadst.com/gfx/600x337/uranus.jpg?1" },
+        { planetName: "Neptune", gravity: 1.148, image: "http://www.nasa.gov/sites/default/files/thumbnails/image/pia01492-main.jpg" },
+    ]
+
+    planets.map((ele) => {
+        const options = document.createElement("option")
+        options.innerHTML = ele.planetName
+        options.value = ele.gravity
+        options.setAttribute("imageSrc", ele.image)
+
+        const select = document.getElementById("selectPlanet")
+        select.appendChild(options)
+
+
+    })
+
+    function calcWeight() {
+        var mass = +document.getElementById("inputWeight").value
+        const select = document.getElementById("selectPlanet")
+
+        var selectedIndex = select.selectedIndex
+        // console.log(selectedIndex);
+        const selectedOption = select.options[selectedIndex]
+        console.log(selectedOption);
+
+        const gravity = +selectedOption.value
+        // console.log(gravity);
+
+        const weight = mass * gravity
+        // console.log(weight);
+
+
+
+
+        const h1 = document.getElementById("h1")
+        var error = "please enter your mass"
+        if (mass == "") {
+            h1.innerText = error
+        } else if (mass <= 0) {
+            h1.innerText = "plz enter mass greater than 0"
+        } else {
+            h1.innerText = Math.abs(weight)
+            var imgsrc = selectedOption.getAttribute("imageSrc")
+            const img = document.getElementById("image")
+            img.src = imgsrc
+        }
+    }
+
+</script>
+
+</html>
